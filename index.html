@@ -47,7 +47,7 @@
     // ✅ 거래대금 보조 막대 전용 설정
     const vol2BarHeight = 8;           // 거래대금 보조 막대 높이
     const vol2BarY      = barHeight + 6; // 변동성 막대 아래에 배치
-    const turnBarMaxW   = 550;         // ✅ 거래대금 보조 막대 최대 길이(요청사항)
+    const turnBarMaxW   = 550;         // ✅ 거래대금 보조 막대 최대 길이
 
     const svg = d3.select("#chart");
 
@@ -154,14 +154,14 @@
         .attr("fill", "white")
         .style("opacity", 0);
 
-      // ✅ 거래대금 보조 막대 (순수 흰색, 불투명)
+      // ✅ 거래대금 보조 막대 (흰색, 불투명)
       groupEnter.append("rect")
         .attr("class", "bar-turnover")
         .attr("x", volBarStart)
         .attr("y", vol2BarY)
         .attr("height", vol2BarHeight)
-        .attr("fill", "#ffffff")   // ✅ white
-        .attr("opacity", 1)        // ✅ fully opaque
+        .attr("fill", "#ffffff")
+        .attr("opacity", 1)
         .attr("width", 0);
 
       // 거래대금 라벨
@@ -188,7 +188,7 @@
         const volW = maxVolatility > 0 ? (safeVolPct / maxVolatility) * volBarMaxW : 0;
 
         const safeTurnover = Math.max(0, d.volume_usdt || 0);
-        const turnW = maxTurnover > 0 ? (safeTurnover / maxTurnover) * turnBarMaxW : 0; // ✅ 550 기준
+        const turnW = maxTurnover > 0 ? (safeTurnover / maxTurnover) * turnBarMaxW : 0; // 550 기준
 
         // 변동성 막대
         g.select("rect.bar-vol")
@@ -217,14 +217,14 @@
           .transition().duration(1000)
           .style("opacity", 1);
 
-        // ✅ 거래대금 보조 막대 (폭: turnBarMaxW 비례)
+        // ✅ 거래대금 보조 막대
         g.select("rect.bar-turnover")
           .transition().duration(1000)
           .attr("width", turnW);
 
-        // 거래대금 라벨 (축약 표기)
+        // 거래대금 라벨 (✅ VOL 제거)
         g.select("text.value-turnover")
-          .text(`VOL ${formatCompact(safeTurnover)} USDT`)
+          .text(`${formatCompact(safeTurnover)} USDT`)
           .transition().duration(1000)
           .style("opacity", 1)
           .attr("x", volBarStart + Math.max(10, turnW + 10))
@@ -262,5 +262,6 @@
   </script>
 </body>
 </html>
+
 
 
